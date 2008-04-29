@@ -65,11 +65,31 @@ class InPlaceEditingTest < Test::Unit::TestCase
   end
   
   def test_in_place_editor_html_response
-    assert_match "Ajax.InPlaceEditor('id-goes-here', 'http://www.example.com/action_to_set_value', {htmlResponse:false})",
+    assert_match "Ajax.InPlaceEditor('id-goes-here', 'http://www.example.com/action_to_set_value', {evalScripts:true, htmlResponse:false})",
     in_place_editor( 'id-goes-here', 
       :url => { :action => "action_to_set_value" }, 
       :script => true )
   end
+
+  def test_in_place_editor_ok_button
+      assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {okButton:'button'})\n//]]>\n</script>),
+        in_place_editor('some_input', {:url => {:action => 'inplace_edit'}, :ok_button => 'button'})
+  end
+  
+  def test_in_place_editor_ok_link
+      assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {okLink:'link'})\n//]]>\n</script>),
+        in_place_editor('some_input', {:url => {:action => 'inplace_edit'}, :ok_link => 'link'})
+  end  
+  
+  def test_in_place_editor_text_before_controls
+      assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {textBeforeControls:'text'})\n//]]>\n</script>),
+        in_place_editor('some_input', {:url => {:action => 'inplace_edit'}, :text_before_controls => 'text'})
+  end  
+  
+  def test_in_place_editor_text_after_controls
+      assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {textAfterControls:'text'})\n//]]>\n</script>),
+        in_place_editor('some_input', {:url => {:action => 'inplace_edit'}, :text_after_controls => 'text'})
+  end  
   
   def form_authenticity_token
     "authenticity token"

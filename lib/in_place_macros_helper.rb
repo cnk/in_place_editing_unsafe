@@ -48,6 +48,8 @@ module InPlaceMacrosHelper
     
     js_options['cancelText'] = %('#{options[:cancel_text]}') if options[:cancel_text]
     js_options['okText'] = %('#{options[:save_text]}') if options[:save_text]
+    js_options['okButton'] = %('#{options[:ok_button]}') if options[:ok_button]
+    js_options['okLink'] = %('#{options[:ok_link]}') if options[:ok_link]
     js_options['loadingText'] = %('#{options[:loading_text]}') if options[:loading_text]
     js_options['savingText'] = %('#{options[:saving_text]}') if options[:saving_text]
     js_options['rows'] = options[:rows] if options[:rows]
@@ -57,9 +59,12 @@ module InPlaceMacrosHelper
     js_options['loadTextURL'] = "'#{url_for(options[:load_text_url])}'" if options[:load_text_url]        
     js_options['ajaxOptions'] = options[:options] if options[:options]
     js_options['htmlResponse'] = !options[:script] if options[:script]
+    js_options['evalScripts'] = options[:script] if options[:script]
     js_options['callback']   = "function(form) { return #{options[:with]} }" if options[:with]
     js_options['clickToEditText'] = %('#{options[:click_to_edit_text]}') if options[:click_to_edit_text]
     js_options['textBetweenControls'] = %('#{options[:text_between_controls]}') if options[:text_between_controls]
+    js_options['textBeforeControls'] = %('#{options[:text_before_controls]}') if options[:text_before_controls]
+    js_options['textAfterControls'] = %('#{options[:text_after_controls]}') if options[:text_after_controls]
     function << (', ' + options_for_javascript(js_options)) unless js_options.empty?
     
     function << ')'
