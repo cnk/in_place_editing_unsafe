@@ -31,6 +31,21 @@ class InPlaceEditingTest < Test::Unit::TestCase
       assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {externalControl:'blah'})\n//]]>\n</script>),
         in_place_editor('some_input', {:url => {:action => 'inplace_edit'}, :external_control => 'blah'})
   end
+
+  def test_in_place_cancel
+      assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {cancelLink:'blah'})\n//]]>\n</script>),
+        in_place_editor('some_input', {:url => {:action => 'inplace_edit'}, :cancel_link => 'blah'})
+  end
+  
+  def test_in_place_on_complete
+      assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {onComplete:'blah'})\n//]]>\n</script>),
+        in_place_editor('some_input', {:url => {:action => 'inplace_edit'}, :on_complete => 'blah'})
+  end
+
+  def test_in_place_on_failure
+      assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {onFailure:'blah'})\n//]]>\n</script>),
+        in_place_editor('some_input', {:url => {:action => 'inplace_edit'}, :on_failure => 'blah'})
+  end
   
   def test_in_place_editor_size
       assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {size:4})\n//]]>\n</script>),
