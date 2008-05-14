@@ -38,12 +38,12 @@ class InPlaceEditingTest < Test::Unit::TestCase
   end
   
   def test_in_place_on_complete
-      assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {onComplete:'blah'})\n//]]>\n</script>),
+      assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {onComplete:blah})\n//]]>\n</script>),
         in_place_editor('some_input', {:url => {:action => 'inplace_edit'}, :on_complete => 'blah'})
   end
 
   def test_in_place_on_failure
-      assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {onFailure:'blah'})\n//]]>\n</script>),
+      assert_dom_equal %(<script type=\"text/javascript\">\n//<![CDATA[\nnew Ajax.InPlaceEditor('some_input', 'http://www.example.com/inplace_edit', {onFailure:blah})\n//]]>\n</script>),
         in_place_editor('some_input', {:url => {:action => 'inplace_edit'}, :on_failure => 'blah'})
   end
   
