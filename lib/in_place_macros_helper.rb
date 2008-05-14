@@ -65,6 +65,9 @@ module InPlaceMacrosHelper
     js_options['textBetweenControls'] = %('#{options[:text_between_controls]}') if options[:text_between_controls]
     js_options['textBeforeControls'] = %('#{options[:text_before_controls]}') if options[:text_before_controls]
     js_options['textAfterControls'] = %('#{options[:text_after_controls]}') if options[:text_after_controls]
+    js_options['cancelLink'] = %('#{options[:cancel_link]}') if options[:cancel_link]
+    js_options['onFailure'] = %('#{options[:on_failure]}') if options[:on_failure]
+    js_options['onComplete'] = %('#{options[:on_complete]}') if options[:on_complete]
     function << (', ' + options_for_javascript(js_options)) unless js_options.empty?
     
     function << ')'
