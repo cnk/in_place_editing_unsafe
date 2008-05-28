@@ -18,7 +18,8 @@ module InPlaceEditing
       define_method("set_#{object}_#{attribute}") do
         @item = object.to_s.camelize.constantize.find(params[:id])
         @item.update_attribute(attribute, params[:value])
-        render :text => @item.send(attribute).to_s
+        display_value = params[:value].empty? && options[:empty_text] ? options[:empty_text] : @item.send(attribute).to_s
+        render :text => display_value
       end
     end
   end

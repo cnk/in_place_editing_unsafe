@@ -25,6 +25,7 @@ module InPlaceMacrosHelper
   # <tt>:size</tt>::              Synonym for :cols when using a single line text input.
   # <tt>:cancel_text</tt>::       The text on the cancel link. (default: "cancel")
   # <tt>:save_text</tt>::         The text on the save link. (default: "ok")
+  # <tt>:empty_text</tt>::        The text to display if the value doesn't yet exist - so you have something to click on to add a new value. (default: "...")
   # <tt>:loading_text</tt>::      The text to display while the data is being loaded from the server (default: "Loading...")
   # <tt>:saving_text</tt>::       The text to display when submitting to the server (default: "Saving...")
   # <tt>:external_control</tt>::  The id of an external control used to enter edit mode.
@@ -79,13 +80,13 @@ module InPlaceMacrosHelper
   def in_place_editor_field(object, method, tag_options = {}, in_place_editor_options = {})
     tag = ::ActionView::Helpers::InstanceTag.new(object, method, self)
     value = tag.value(tag.object)
-    if (value.blank?)
-      value = tag_options.delete(:default_value)
+    if (value.blank? && !in_place_editor_options[:empty_text].blank?) 
+      value = in_place_editor_options[:empty_text]
     end
     
     tag_options = {:tag => "span", :id => "#{object}_#{method}_#{tag.object.id}_in_place_editor", :class => "in_place_editor_field"}.merge!(tag_options)
     in_place_editor_options[:url] = in_place_editor_options[:url] || url_for({ :action => "set_#{object}_#{method}", :id => tag.object.id })
-    tag.content_tag(tag_options.delete(:tag), value, tag_options) +    
-    in_place_editor(tag_options[:id], in_place_editor_options)
+    tag.content_tag(tag_options.delete(:tag), value, tag_options) + in_place_editor(tag_options[:id], in_place_editor_options)
   end
 end
+
